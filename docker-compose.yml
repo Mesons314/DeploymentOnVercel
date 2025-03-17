@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: .
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - something-net
+    environment:
+      - VITE_BACKEND_URL=http://something-app:8080  # Use backend container name
+      - CHOKIDAR_USEPOLLING=true  # Helps with file changes inside Docker
+
+networks:
+  something-net:
+    external: true  # Connects to the existing backend network
+
